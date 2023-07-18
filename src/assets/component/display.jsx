@@ -6,7 +6,8 @@ export default class Display extends React.Component{
     render(){
         return(
             <section className="display-container">
-                00:00
+                {this.props.minute < 10 ? '0' + this.props.minute : this.props.minute}
+                :00
             </section>
         )
     }

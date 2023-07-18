@@ -14,6 +14,7 @@ display: flex;
     margin: 0;
     box-sizing: border-box;
 }
+
 body{
     @include flex(center ,center);
     min-width: 100vw;
@@ -63,10 +64,13 @@ body{
         @include flex(center,center,column);
 
         .control-display{
+            @include flex(center,center);
             margin: 5px;
             width : 70px;
             height: 50px;
             border: 1px solid wheat;
+            font-size: 2rem;
+            color: white;
         }
     }
 }

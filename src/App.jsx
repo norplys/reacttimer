@@ -16,13 +16,50 @@ class App extends React.Component{
       second : 0,
     }
   }
-  
+  minuteUp(){
+    this.state.minute >= 60 ? this.setState({minute : 60}) : 
+    this.setState({
+      minute : this.state.minute + 1,
+    });
+  };
+
+  minuteDown(){
+  if(this.state.minute <= 0){
+    this.setState({
+      minute : 0,
+    });
+  } else {
+    this.setState({
+      minute : this.state.minute - 1,
+    })}
+    ;
+  };
+
+  breakUp(){
+    this.state.breakTime >= 60 ? this.setState({breakTime : 60}) : 
+    this.setState({
+      breakTime : this.state.breakTime + 1,
+    });
+  }
+
+  breakDown(){
+    if(this.state.breakTime <= 0){
+      this.setState({
+        breakTime  : 0,
+      })
+    } else{
+    this.setState({
+      breakTime : this.state.breakTime - 1,
+    })
+  };
+  }
+
   render(){
     return(
       <div className='container'>
         <Button/>
         <Display minute = {this.state.minute} second = {this.state.second}/>
-        <Control/>
+        <Control minute = {this.state.minute} minuteUp = {this.minuteUp.bind(this)}  minuteDown = {this.minuteDown.bind(this)} break = {this.state.breakTime} breakDown = {this.breakDown.bind(this)} breakUp = {this.breakUp.bind(this)}/>
       </div>
     )
   }
