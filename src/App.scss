@@ -1,0 +1,72 @@
+$default-radius : 4px;
+$text-colour : rgba(255,255,255,0.7);
+
+@mixin flex($justify : flex-start, $align : flex-start, $direction : row){
+display: flex;
+    flex-direction: $direction;
+    justify-content: $justify;
+    align-items: $align;
+}
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    @include flex(center ,center);
+    min-width: 100vw;
+    min-height: 100vh;
+    background: rgb(5,1,68);
+    background: linear-gradient(142deg, rgba(5,1,68,1) 50%, rgba(43,43,134,1) 100%);
+    
+}
+.container{
+    padding: 10px;
+    @include flex(center, center, column);
+    width: 500px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.9px);
+    -webkit-backdrop-filter: blur(9.9px);
+    border: 1px solid rgba(255, 255, 255, 0.29);
+}
+.button-container{
+    @include flex(center,center);
+    gap: 10px;
+    flex: 1;
+    width: 100%;
+    i {
+        color: white;
+        font-size: 2rem;
+    }
+}
+.display-container{
+    @include flex(center,center);
+    flex : 1;
+    width: 100%;
+    color: white;
+    font-size: 4rem;
+}
+.control-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    flex:1;
+
+    width: 100%;
+
+
+    .containing{
+        @include flex(center,center,column);
+
+        .control-display{
+            margin: 5px;
+            width : 70px;
+            height: 50px;
+            border: 1px solid wheat;
+        }
+    }
+}
