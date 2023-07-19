@@ -40,6 +40,10 @@ body{
     gap: 10px;
     flex: 1;
     width: 100%;
+    button{
+        background-color: transparent;
+        border: none;
+    }
     i {
         color: white;
         font-size: 2rem;

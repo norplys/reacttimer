@@ -10,8 +10,8 @@ export default class Control extends React.Component{
         return(
             <section className="control-container">
                 <section className="containing">
-                    <button className="up" onClick={this.props.minuteUp}><i className="fa-solid fa-chevron-up"></i></button>
-                    <div className="control-display">{this.props.minute}</div>
+                    <button className="up" onClick={() => {this.props.minuteUp(), this.props.control()}}><i className="fa-solid fa-chevron-up"></i></button>
+                    <div className="control-display">{this.props.controlTime}</div>
                     <button className="down" onClick={this.props.minuteDown}><i className="fa-solid fa-chevron-up fa-rotate-180"></i></button>
                 </section>
                 <section className="containing">

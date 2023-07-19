@@ -9,12 +9,50 @@ class App extends React.Component{
   constructor(){
     super();
     this.state = {
-      isCounting : false,
       breakTime : 0,
       controlTime : 0,
-      minute : 0,
+      minuteControl : 0,
+      minute : 1,
       second : 0,
+      interval : 0,
     }
+  }
+  componentDidUpdate(np,ns){
+    if(this.state.second < 0 && this.state.interval && this.state.minute != 0){
+      this.setState({
+        minute : this.state.minute - 1,
+        second : 60,
+      });
+    }
+    if(this.state.second === 0 && this.state.minute === 0 && this.state.interval){
+      clearInterval(this.state.interval);
+      this.setState({
+        interval : 0,
+      });
+    }
+  }
+  HandleClick(){
+    if(this.state.interval){
+      clearInterval(this.state.interval);
+      this.setState({
+        interval : 0,
+      })
+      return;
+    }
+    const Interval = setInterval(() => {
+      this.setState({
+        second : this.state.second - 1,
+      })
+    },1000)
+    this.setState({
+    interval : Interval,
+    })
+  }
+
+  controlMinute(){
+    this.setState({
+      controlTime : this.state.minute
+    });
   }
   minuteUp(){
     this.state.minute >= 60 ? this.setState({minute : 60}) : 
@@ -57,9 +95,9 @@ class App extends React.Component{
   render(){
     return(
       <div className='container'>
-        <Button/>
-        <Display minute = {this.state.minute} second = {this.state.second}/>
-        <Control minute = {this.state.minute} minuteUp = {this.minuteUp.bind(this)}  minuteDown = {this.minuteDown.bind(this)} break = {this.state.breakTime} breakDown = {this.breakDown.bind(this)} breakUp = {this.breakUp.bind(this)}/>
+        <Button isPlay = {this.state.interval} playAndPause = {this.HandleClick.bind(this)} />
+        <Display  minute = {this.state.minute} second = {this.state.second}/>
+        <Control control = {this.controlMinute.bind(this)} controlTime = {this.state.controlTime} minute = {this.state.minute} minuteUp = {this.minuteUp.bind(this)}  minuteDown = {this.minuteDown.bind(this)} break = {this.state.breakTime} breakDown = {this.breakDown.bind(this)} breakUp = {this.breakUp.bind(this)}/>
       </div>
     )
   }
