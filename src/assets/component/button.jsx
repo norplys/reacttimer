@@ -7,7 +7,7 @@ export default class Button extends React.Component{
         return(
             <section className="button-container">
                     <button onClick={this.props.playAndPause}>{this.props.isPlay  ? <i className="fa-sharp fa-solid fa-pause"></i> : <i className="fa-solid fa-play"></i>}</button>
-                    <i className="fa-solid fa-rotate"></i>
+                    <button onClick={this.props.reset}><i className="fa-solid fa-rotate"></i></button>
             </section>
         )
     }
