@@ -14,6 +14,7 @@ display: flex;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
 }
 
 body{
@@ -40,6 +41,12 @@ p:last-child{
     -webkit-backdrop-filter: blur(9.9px);
     backdrop-filter: blur(9.9px);
     border: 1px solid rgba(255, 255, 255, 0.29);
+    P:nth-child(2){
+        @include flex(center,center);
+        color: white;
+        font-size: 1.5rem;
+        height: 50px
+    }
 }
 .button-container{
     @include flex(center,center);
@@ -58,6 +65,7 @@ p:last-child{
 }
 .display-container{
     @include flex(center,center);
+    border-top: 1px solid white;
     border-bottom: 1px solid white;
     border-radius: 2px;
     background-color: $section-background;
@@ -65,6 +73,7 @@ p:last-child{
     width: 100%;
     color: white;
     font-size: 4rem;
+    margin-bottom: 10px;
 }
 .control-container{
     display: grid;
@@ -76,10 +85,15 @@ p:last-child{
 
     .containing{
         @include flex(center,center,column);
-
+        button{
+            border: none;
+            padding: 1px;
+            border-radius: 30%;
+            color: darkgreen;
+        }
         p{
             margin-bottom: 5px;
-            color: white
+            color: white;
         }
 
         .control-display{
