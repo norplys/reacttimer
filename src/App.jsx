@@ -11,11 +11,11 @@ class App extends React.Component{
     super();
     this.state = {
       breakTime : 5,
-      controlTime : 4,
-      minute : 0,
-      second : 1,
+      controlTime : 25,
+      minute : 25,
+      second : 0,
       interval : 0,
-      now : 'breaktime',
+      now : 'stop',
     }
   }
 
@@ -29,7 +29,6 @@ class App extends React.Component{
     }
     
     if(this.state.second === 0 && this.state.minute === 0 && this.state.interval && this.state.now === 'counting'){
-      console.log('h')
       clearInterval(this.state.interval);
       this.playsound();
       this.setState({
@@ -79,6 +78,7 @@ class App extends React.Component{
       minute : 25,
       second : 0,
       breakTime : 5,
+      now: 'stop'
     })
   }
   
@@ -105,7 +105,7 @@ class App extends React.Component{
     },1000)
     this.setState({
     interval : Interval,
-    // now : 'counting'
+    now : 'counting'
     })
   }
 
@@ -120,7 +120,12 @@ class App extends React.Component{
         minute : 1,
         controlTime : 1,
       })
-      : 
+      : this.state.second != 0 ?
+      this.setState({
+        minute : this.state.controlTime + event,
+        controlTime : this.state.controlTime + event,
+        second : 0,
+      }) :
       this.setState({
         minute : this.state.controlTime + event,
         controlTime : this.state.controlTime + event,
@@ -146,11 +151,14 @@ class App extends React.Component{
 
   render(){
     return(
+      <>
       <div className='container'>
         <Button isPlay = {this.state.interval} playAndPause = {this.HandleClick.bind(this)} reset = {this.reset.bind(this)} />
         <Display  minute = {this.state.minute} second = {this.state.second}/>
-        <Control  controlTime = {this.state.controlTime} minute = {this.state.minute} minuteHandler = {this.minuteHandler.bind(this)}  break = {this.state.breakTime} breakHandler = {this.breakHandler.bind(this)} />
+        <Control  now = {this.state.now} controlTime = {this.state.controlTime} minute = {this.state.minute} minuteHandler = {this.minuteHandler.bind(this)}  break = {this.state.breakTime} breakHandler = {this.breakHandler.bind(this)} />
       </div>
+      <p>Coded and Deployed By Norplys</p>
+      </>
     )
   }
 }
