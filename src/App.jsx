@@ -12,10 +12,11 @@ class App extends React.Component{
     this.state = {
       breakTime : 5,
       controlTime : 25,
-      minute : 25,
-      second : 0,
+      minute : 0,
+      second : 1,
       interval : 0,
-      now : 'stop',
+      now : 'counting',
+      handlePlay : 'play',
     }
   }
 
@@ -31,9 +32,6 @@ class App extends React.Component{
     if(this.state.second === 0 && this.state.minute === 0 && this.state.interval && this.state.now === 'counting'){
       clearInterval(this.state.interval);
       this.playsound();
-      this.setState({
-        interval : 0,
-      });
       setTimeout(() => {const Interval = setInterval(() => {
         this.setState({
           second : this.state.second - 1,
@@ -47,7 +45,6 @@ class App extends React.Component{
     }
 
     else if (this.state.second === 0 && this.state.minute === 0 && this.state.interval && this.state.now === 'breaktime'){
-      console.log('h')
       clearInterval(this.state.interval);
       this.playsound();
       this.setState({
@@ -66,9 +63,6 @@ class App extends React.Component{
       });},4000)
     }
   } 
-
-
-
   reset(){
     sound.pause();
     clearInterval(this.state.interval);
@@ -86,7 +80,6 @@ class App extends React.Component{
     sound.pause();
     sound.currentTime = 0;
     sound.play();
-
   }
 
   HandleClick(){
@@ -94,7 +87,7 @@ class App extends React.Component{
       clearInterval(this.state.interval);
       this.setState({
         interval : 0,
-        now : 'stop'
+        now : this.state.now,
       })
       return;
     }
@@ -105,7 +98,7 @@ class App extends React.Component{
     },1000)
     this.setState({
     interval : Interval,
-    now : 'counting'
+    now : this.state.now
     })
   }
 
@@ -156,7 +149,7 @@ class App extends React.Component{
         <Button isPlay = {this.state.interval} playAndPause = {this.HandleClick.bind(this)} reset = {this.reset.bind(this)} />
         <p>{this.state.now != 'breaktime' ? 'SESSION' : 'BREAK TIME'}</p>
         <Display  minute = {this.state.minute} second = {this.state.second}/>
-        <Control  now = {this.state.now} controlTime = {this.state.controlTime} minute = {this.state.minute} minuteHandler = {this.minuteHandler.bind(this)}  break = {this.state.breakTime} breakHandler = {this.breakHandler.bind(this)} />
+        <Control interval={this.state.interval} controlTime = {this.state.controlTime} minute = {this.state.minute} minuteHandler = {this.minuteHandler.bind(this)}  break = {this.state.breakTime} breakHandler = {this.breakHandler.bind(this)} />
       </div>
       <p>Coded and Deployed By Norplys</p>
       </>
