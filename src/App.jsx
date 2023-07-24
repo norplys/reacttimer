@@ -12,8 +12,8 @@ class App extends React.Component{
     this.state = {
       breakTime : 5,
       controlTime : 25,
-      minute : 0,
-      second : 1,
+      minute : 25,
+      second : 0,
       interval : 0,
       now : 'counting',
       handlePlay : 'play',
