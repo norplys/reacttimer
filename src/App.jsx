@@ -16,7 +16,7 @@ class App extends React.Component{
       second : 0,
       interval : 0,
       now : 'counting',
-      handlePlay : 'play',
+      handlePlay : 1,
     }
   }
 
@@ -32,12 +32,17 @@ class App extends React.Component{
     if(this.state.second === 0 && this.state.minute === 0 && this.state.interval && this.state.now === 'counting'){
       clearInterval(this.state.interval);
       this.playsound();
+      this.setState({
+        handlePlay : 0,
+        interval : 0,
+      });
       setTimeout(() => {const Interval = setInterval(() => {
         this.setState({
           second : this.state.second - 1,
         })
       },1000)
       this.setState({
+        handlePlay : 1,
         now : 'breaktime',
         minute : this.state.breakTime,
         interval : Interval,
@@ -49,6 +54,7 @@ class App extends React.Component{
       this.playsound();
       this.setState({
         interval : 0,
+        handlePlay : 0,
       });
       setTimeout(() => 
       {const Interval = setInterval(() => {
@@ -60,6 +66,7 @@ class App extends React.Component{
         now : 'counting',
         minute : this.state.controlTime,
         interval : Interval,
+        handlePlay : 1,
       });},4000)
     }
   } 
@@ -146,7 +153,7 @@ class App extends React.Component{
     return(
       <>
       <div className='container'>
-        <Button isPlay = {this.state.interval} playAndPause = {this.HandleClick.bind(this)} reset = {this.reset.bind(this)} />
+        <Button handlePlay = {this.state.handlePlay} isPlay = {this.state.interval} playAndPause = {this.HandleClick.bind(this)} reset = {this.reset.bind(this)} />
         <p>{this.state.now != 'breaktime' ? 'SESSION' : 'BREAK TIME'}</p>
         <Display  minute = {this.state.minute} second = {this.state.second}/>
         <Control interval={this.state.interval} controlTime = {this.state.controlTime} minute = {this.state.minute} minuteHandler = {this.minuteHandler.bind(this)}  break = {this.state.breakTime} breakHandler = {this.breakHandler.bind(this)} />
