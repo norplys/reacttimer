@@ -3,7 +3,7 @@ $text-colour : rgba(255,255,255,0.7);
 $section-background : rgba(200, 200, 200, 0.1);
 
 @mixin flex($justify : flex-start, $align : flex-start, $direction : row){
-display: flex;
+    display: flex;
     flex-direction: $direction;
     justify-content: $justify;
     align-items: $align;
@@ -26,7 +26,7 @@ body{
     
 }
 p:last-child{
-    margin-top: 10px;
+    margin-top: 20px;
     text-align: center;
     color: white;
 }
@@ -41,6 +41,10 @@ p:last-child{
     -webkit-backdrop-filter: blur(9.9px);
     backdrop-filter: blur(9.9px);
     border: 1px solid rgba(255, 255, 255, 0.29);
+    -webkit-box-shadow: 1px 0px 55px 14px rgba(146,0,184,0.75);
+    -moz-box-shadow: 1px 0px 55px 14px rgba(146,0,184,0.75);
+    box-shadow: 1px 0px 55px 14px rgba(146,0,184,0.75);
+    border: 4px solid blueviolet;
     P:nth-child(2){
         @include flex(center,center);
         color: white;
