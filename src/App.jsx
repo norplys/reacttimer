@@ -17,6 +17,7 @@ class App extends React.Component{
       interval : 0,
       now : 'counting',
       handlePlay : 1,
+      timeOut : 0
     }
   }
 
@@ -30,13 +31,7 @@ class App extends React.Component{
     }
     
     if(this.state.second === 0 && this.state.minute === 0 && this.state.interval && this.state.now === 'counting'){
-      clearInterval(this.state.interval);
-      this.playsound();
-      this.setState({
-        handlePlay : 0,
-        interval : 0,
-      });
-      setTimeout(() => {const Interval = setInterval(() => {
+      const timeOut = setTimeout(() => {const Interval = setInterval(() => {
         this.setState({
           second : this.state.second - 1,
         })
@@ -47,16 +42,17 @@ class App extends React.Component{
         minute : this.state.breakTime,
         interval : Interval,
       })} ,4000);
-    }
-
-    else if (this.state.second === 0 && this.state.minute === 0 && this.state.interval && this.state.now === 'breaktime'){
       clearInterval(this.state.interval);
       this.playsound();
       this.setState({
-        interval : 0,
         handlePlay : 0,
+        interval : 0,
+        timeOut : timeOut,
       });
-      setTimeout(() => 
+    }
+
+    else if (this.state.second === 0 && this.state.minute === 0 && this.state.interval && this.state.now === 'breaktime'){
+      const timeOut = setTimeout(() => 
       {const Interval = setInterval(() => {
         this.setState({
           second : this.state.second - 1,
@@ -68,18 +64,28 @@ class App extends React.Component{
         interval : Interval,
         handlePlay : 1,
       });},4000)
+      clearInterval(this.state.interval);
+      this.playsound();
+      this.setState({
+        interval : 0,
+        handlePlay : 0,
+        timeOut : timeOut,
+      });
     }
   } 
   reset(){
     sound.pause();
+    clearTimeout(this.state.timeOut);
     clearInterval(this.state.interval);
     this.setState({
+      handlePlay : 1,
       controlTime : 25,
       interval : 0,
       minute : 25,
       second : 0,
       breakTime : 5,
-      now: 'stop'
+      now: 'counting',
+      timeOut : 0,
     })
   }
   
